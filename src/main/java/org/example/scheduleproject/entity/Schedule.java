@@ -13,14 +13,22 @@ public class Schedule {
     private String todo;
     private String author;
     private String password;
-    private Date create_date;
-    private Date edit_date;
+    private Date createDate;
+    private Date editDate;
 
     public Schedule (String todo, String author, String password){
         this.todo = todo;
         this.author = author;
         this.password = password;
-        this.create_date = new Date();
-        this.edit_date = create_date;
+        this.createDate = new Date();
+        this.editDate = createDate;
+    }
+
+    public Schedule(Long id, String todo, String author, Date createDate, Date editDate) {
+        this.id = id;
+        this.todo = todo;
+        this.author = author;
+        this.createDate = createDate;
+        this.editDate = editDate;
     }
 }

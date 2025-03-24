@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ScheduleRepository {
     ScheduleResponseDto saveSchedule(Schedule schedule);
+    Schedule findScheduleById(Long id);
     List<ScheduleResponseDto> findScheduleByAuthor();
     List<ScheduleResponseDto> findScheduleByEditDate();
 
