@@ -1,4 +1,5 @@
-CREATE DATABASE schedule;
+create schema schedule;
+
 USE schedule;
 
 CREATE TABLE schedule
