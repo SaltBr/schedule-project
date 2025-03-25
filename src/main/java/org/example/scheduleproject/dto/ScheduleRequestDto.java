@@ -13,5 +13,6 @@ public class ScheduleRequestDto {
     private Date createDate;
     private Date editDate;
     private Long authorId;
+    private String authorName;
 
 }

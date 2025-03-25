@@ -15,6 +15,7 @@ public class ScheduleResponseDto {
     private Date createDate;
     private Date editDate;
     private Long authorId;
+    private String authorName;
 
     public ScheduleResponseDto(Schedule schedule){
         this.id = schedule.getId();
@@ -22,5 +23,6 @@ public class ScheduleResponseDto {
         this.createDate = schedule.getCreateDate();
         this.editDate = schedule.getEditDate();
         this.authorId = schedule.getAuthorId();
+        this.authorName = schedule.getAuthorName();
     }
 }
