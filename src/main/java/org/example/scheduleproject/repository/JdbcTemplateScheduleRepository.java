@@ -51,7 +51,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id does not exist = " + id));
     }
 
-    //작성자명, 날짜 필터
+    //작성자 id, 날짜 필터
     @Override
     public List<ScheduleResponseDto> findScheduleByFilter(Optional<Long> authorId, Optional<Date> date) {
         String query = "select * from schedule ";
@@ -67,14 +67,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
             query += "where author_id = ? AND date(edit_date) = ? order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper(), authorId.get(), date.get());
         } else {
-            //날짜와 작성자명이 둘 다 들어오지 않으면 전체 결과 반환
+            //날짜와 작성자 id 둘 다 들어오지 않으면 전체 결과 반환
             query+="order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper());
         }
         return result;
     }
 
-    //일정 수정 (작성자, 할일, 수정일)
+    //일정 수정 (작성자 id, 할일, 수정일)
     @Override
     public int updateSchedule(Long id, String todo, Long authorId, String password) {
         return jdbcTemplate.update("update schedule set todo = ?, author_id = ?, edit_date = CURRENT_TIMESTAMP where id = ? and password = ?", todo, authorId, id, password);
@@ -97,7 +97,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                         rs.getTimestamp("create_date"),
                         rs.getTimestamp("edit_date"),
                         rs.getLong("author_id")
-                        );
+                );
             }
         };
     }

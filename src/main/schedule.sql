@@ -21,5 +21,3 @@ CREATE TABLE schedule
     author_id BIGINT,
     FOREIGN KEY (author_id) REFERENCES author(author_id)
 );
-
-#이거 먼저 넣어주고 작성
