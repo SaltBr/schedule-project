@@ -27,6 +27,7 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public AuthorResponseDto findAuthorById(Long authorId) {
-        return null;
+        Author author = authorRepository.findAuthorById(authorId);
+        return new AuthorResponseDto(author);
     }
 }

@@ -7,10 +7,7 @@ import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.service.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authors")
@@ -24,5 +21,10 @@ public class AuthorController {
     @PostMapping
     public ResponseEntity<AuthorResponseDto> createAuthor(@RequestBody AuthorRequestDto dto) {
         return new ResponseEntity<>(authorService.createAuthor(dto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{authorId}")
+    public ResponseEntity<AuthorResponseDto> findAuthorById(@PathVariable Long authorId){
+        return new ResponseEntity<>(authorService.findAuthorById(authorId), HttpStatus.OK);
     }
 }
