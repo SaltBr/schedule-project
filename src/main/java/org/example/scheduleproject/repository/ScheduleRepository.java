@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ScheduleRepository {
     ScheduleResponseDto saveSchedule(Schedule schedule);
     Schedule findScheduleById(Long id);
-    List<ScheduleResponseDto> findScheduleByFilter(Optional<String> author, Optional<Date> editDate);
+    List<ScheduleResponseDto> findScheduleByFilter(Optional<Long> authorId, Optional<Date> editDate);
     int updateSchedule(Long id, String todo, Long authorId, String password);
     int deleteSchedule(Long id, String password);
 }

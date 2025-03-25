@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ScheduleService {
     ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
     ScheduleResponseDto findScheduleById(Long id);
-    List<ScheduleResponseDto> findScheduleByFilter(Optional<String> author, Optional<Date> date);
+    List<ScheduleResponseDto> findScheduleByFilter(Optional<Long> authorId, Optional<Date> date);
     ScheduleResponseDto updateSchedule(Long id, String todo, Long authorId, String password);
     void deleteSchedule(Long id, String password);
 }

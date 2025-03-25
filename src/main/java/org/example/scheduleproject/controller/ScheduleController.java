@@ -37,10 +37,10 @@ public class ScheduleController {
     //작성자, 수정일 필터로 일정 조회
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findScheduleByFilter(
-            @RequestParam (required = false) Optional<String> author,
+            @RequestParam (required = false) Optional<Long> authorId,
             @RequestParam (required = false) Optional<Date> date
              ) {
-        return new ResponseEntity<>(scheduleService.findScheduleByFilter(author, date), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.findScheduleByFilter(authorId, date), HttpStatus.OK);
     }
 
     //할일, 작성자 수정

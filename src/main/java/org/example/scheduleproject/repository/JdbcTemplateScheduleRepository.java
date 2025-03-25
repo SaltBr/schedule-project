@@ -53,19 +53,19 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     //작성자명, 날짜 필터
     @Override
-    public List<ScheduleResponseDto> findScheduleByFilter(Optional<String> author, Optional<Date> date) {
+    public List<ScheduleResponseDto> findScheduleByFilter(Optional<Long> authorId, Optional<Date> date) {
         String query = "select * from schedule ";
         List<ScheduleResponseDto> result;
 
-        if(author.isPresent() && date.isEmpty()){
-            query += "where author = ? order by edit_date";
-            result = jdbcTemplate.query(query, scheduleRowMapper(), author.get());
-        } else if(author.isEmpty() && date.isPresent()){
+        if(authorId.isPresent() && date.isEmpty()){
+            query += "where author_id = ? order by edit_date";
+            result = jdbcTemplate.query(query, scheduleRowMapper(), authorId.get());
+        } else if(authorId.isEmpty() && date.isPresent()){
             query += "where date(edit_date) = ? order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper(), date.get());
-        } else if(author.isPresent() && date.isPresent()) {
-            query += "where author = ? AND date(edit_date) = ? order by edit_date";
-            result = jdbcTemplate.query(query, scheduleRowMapper(), author.get(), date.get());
+        } else if(authorId.isPresent() && date.isPresent()) {
+            query += "where author_id = ? AND date(edit_date) = ? order by edit_date";
+            result = jdbcTemplate.query(query, scheduleRowMapper(), authorId.get(), date.get());
         } else {
             //날짜와 작성자명이 둘 다 들어오지 않으면 전체 결과 반환
             query+="order by edit_date";
