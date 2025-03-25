@@ -16,6 +16,8 @@ public class Schedule {
     private Date createDate;
     private Date editDate;
 
+    //처음 일정 생성시 사용하는 생성자
+    //비밀번호 포함, 생성일 지정
     public Schedule (String todo, String author, String password){
         this.todo = todo;
         this.author = author;
@@ -24,6 +26,7 @@ public class Schedule {
         this.editDate = createDate;
     }
 
+    //비밀번호 제외한 생성자
     public Schedule(Long id, String todo, String author, Date createDate, Date editDate) {
         this.id = id;
         this.todo = todo;
