@@ -19,13 +19,12 @@ public class Schedule {
 
     //처음 일정 생성시 사용하는 생성자
     //비밀번호 포함, 생성일 지정
-    public Schedule (String todo, Long authorId, String password, String authorName){
+    public Schedule (String todo, Long authorId, String password){
         this.todo = todo;
         this.authorId = authorId;
         this.password = password;
         this.createDate = new Date();
         this.editDate = createDate;
-        this.authorName = authorName;
     }
 
     //비밀번호 제외한 생성자

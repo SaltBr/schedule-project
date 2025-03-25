@@ -26,7 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
         //날짜를 포함한 새 일정 생성
-        Schedule schedule = new Schedule(dto.getTodo(), dto.getAuthorId(), dto.getPassword(), dto.getAuthorName());
+        Schedule schedule = new Schedule(dto.getTodo(), dto.getAuthorId(), dto.getPassword());
         //레포지토리로 전달
         return scheduleRepository.saveSchedule(schedule);
     }
