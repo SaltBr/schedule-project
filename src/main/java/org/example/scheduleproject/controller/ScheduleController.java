@@ -1,6 +1,5 @@
 package org.example.scheduleproject.controller;
 
-import org.apache.coyote.Response;
 import org.example.scheduleproject.dto.ScheduleRequestDto;
 import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.entity.Schedule;

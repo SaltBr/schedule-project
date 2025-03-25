@@ -35,8 +35,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("todo", schedule.getTodo());
         parameters.put("author", schedule.getAuthor());
-        parameters.put("createDate", schedule.getCreateDate());
-        parameters.put("editDate", schedule.getEditDate());
+        parameters.put("create_date", schedule.getCreateDate());
+        parameters.put("edit_date", schedule.getEditDate());
         parameters.put("password",schedule.getPassword());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -59,17 +59,17 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         List<ScheduleResponseDto> result;
 
         if(author.isPresent() && date.isEmpty()){
-            query += "where author = ? order by editDate";
+            query += "where author = ? order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper(), author.get());
         } else if(author.isEmpty() && date.isPresent()){
-            query += "where date(editDate) = ? order by editDate";
+            query += "where date(edit_date) = ? order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper(), date.get());
         } else if(author.isPresent() && date.isPresent()) {
-            query += "where author = ? AND date(editDate) = ? order by editDate";
+            query += "where author = ? AND date(edit_date) = ? order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper(), author.get(), date.get());
         } else {
             //날짜와 작성자명이 둘 다 들어오지 않으면 전체 결과 반환
-            query+="order by editDate";
+            query+="order by edit_date";
             result = jdbcTemplate.query(query, scheduleRowMapper());
         }
         return result;
@@ -78,7 +78,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     //일정 수정 (작성자, 할일, 수정일)
     @Override
     public int updateSchedule(Long id, String todo, String author, String password) {
-        return jdbcTemplate.update("update schedule set todo = ?, author = ?, editDate = CURRENT_TIMESTAMP where id = ? and password = ?", todo, author, id, password);
+        return jdbcTemplate.update("update schedule set todo = ?, author = ?, edit_date = CURRENT_TIMESTAMP where id = ? and password = ?", todo, author, id, password);
     }
 
     //일정 삭제
@@ -96,8 +96,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                         rs.getLong("id"),
                         rs.getString("todo"),
                         rs.getString("author"),
-                        rs.getTimestamp("createDate"),
-                        rs.getTimestamp("editDate")
+                        rs.getTimestamp("create_date"),
+                        rs.getTimestamp("edit_date")
                 );
             }
         };
@@ -111,8 +111,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                         rs.getLong("id"),
                         rs.getString("todo"),
                         rs.getString("author"),
-                        rs.getTimestamp("createDate"),
-                        rs.getTimestamp("editDate")
+                        rs.getTimestamp("create_date"),
+                        rs.getTimestamp("edit_date")
                 );
             }
         };
