@@ -1,10 +1,7 @@
 package org.example.scheduleproject.repository;
 
 import org.example.scheduleproject.dto.AuthorResponseDto;
-import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.entity.Author;
-import org.example.scheduleproject.entity.Schedule;
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -49,6 +46,12 @@ public class JdbcTemplateAuthorRepository implements AuthorRepository{
         List<Author> result = jdbcTemplate.query("select * from author where author_id = ?", authorRowMapperV2(), authorId);
         //없을 경우 바로 404 에러
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id does not exist = " + authorId));
+    }
+
+    //작성자 이름, 이메일 수정
+    @Override
+    public int updateAuthor(Long authorId, String name, String email) {
+        return jdbcTemplate.update("update author set name = ?, email = ?, edit_date = CURRENT_TIMESTAMP where author_id = ?", name, email, authorId);
     }
 
 
