@@ -5,7 +5,10 @@ import org.example.scheduleproject.dto.ScheduleRequestDto;
 import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.entity.Schedule;
 import org.example.scheduleproject.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.util.List;
@@ -38,5 +41,31 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<ScheduleResponseDto> findScheduleByFilter(Optional<String> author, Optional<Date> date) {
         return scheduleRepository.findScheduleByFilter(author, date);
+    }
+
+    //일정 수정 및 오류 관리
+    @Transactional
+    @Override
+    public ScheduleResponseDto updateSchedule(Long id, String todo, String author, String password) {
+        if(todo == null || author == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Todo and author value is required.");
+        }
+
+        int updatedRow = scheduleRepository.updateSchedule(id, todo, author, password);
+
+        if(updatedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id does not exist, or password is incorrect.");
+        }
+
+        Schedule schedule = scheduleRepository.findScheduleById(id);
+        return new ScheduleResponseDto(schedule);    }
+
+    //일정 삭제 및 오류 관리
+    @Override
+    public void deleteSchedule(Long id, String password) {
+        int deletedRow = scheduleRepository.deleteSchedule(id, password);
+        if(deletedRow == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id does not exist, or password is incorrect.");
+        }
     }
 }

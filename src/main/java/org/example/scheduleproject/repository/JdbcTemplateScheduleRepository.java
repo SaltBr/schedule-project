@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -74,6 +73,18 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
             result = jdbcTemplate.query(query, scheduleRowMapper());
         }
         return result;
+    }
+
+    //일정 수정 (작성자, 할일, 수정일)
+    @Override
+    public int updateSchedule(Long id, String todo, String author, String password) {
+        return jdbcTemplate.update("update schedule set todo = ?, author = ?, editDate = CURRENT_TIMESTAMP where id = ? and password = ?", todo, author, id, password);
+    }
+
+    //일정 삭제
+    @Override
+    public int deleteSchedule(Long id, String password) {
+        return jdbcTemplate.update("delete from schedule where id = ? and password = ?", id, password);
     }
 
 

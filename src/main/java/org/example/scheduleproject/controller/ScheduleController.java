@@ -1,7 +1,9 @@
 package org.example.scheduleproject.controller;
 
+import org.apache.coyote.Response;
 import org.example.scheduleproject.dto.ScheduleRequestDto;
 import org.example.scheduleproject.dto.ScheduleResponseDto;
+import org.example.scheduleproject.entity.Schedule;
 import org.example.scheduleproject.service.ScheduleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,24 @@ public class ScheduleController {
             @RequestParam (required = false) Optional<Date> date
              ) {
         return new ResponseEntity<>(scheduleService.findScheduleByFilter(author, date), HttpStatus.OK);
+    }
+
+    //할일, 작성자 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleRequestDto dto
+    ) {
+        return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getTodo(), dto.getAuthor(), dto.getPassword()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleRequestDto dto
+    ) {
+        scheduleService.deleteSchedule(id, dto.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

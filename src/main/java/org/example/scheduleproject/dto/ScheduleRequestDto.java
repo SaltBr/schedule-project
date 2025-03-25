@@ -1,6 +1,7 @@
 package org.example.scheduleproject.dto;
 
 import lombok.Getter;
+import org.example.scheduleproject.entity.Schedule;
 
 import java.util.Date;
 
