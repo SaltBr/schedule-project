@@ -12,15 +12,15 @@ public class ScheduleResponseDto {
 
     private Long id;
     private String todo;
-    private String author;
     private Date createDate;
     private Date editDate;
+    private Long authorId;
 
     public ScheduleResponseDto(Schedule schedule){
         this.id = schedule.getId();
         this.todo = schedule.getTodo();
-        this.author = schedule.getAuthor();
         this.createDate = schedule.getCreateDate();
         this.editDate = schedule.getEditDate();
+        this.authorId = schedule.getAuthorId();
     }
 }

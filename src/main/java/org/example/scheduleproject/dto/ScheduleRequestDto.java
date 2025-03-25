@@ -9,9 +9,9 @@ import java.util.Date;
 public class ScheduleRequestDto {
 
     private String todo;
-    private String author;
     private String password;
     private Date createDate;
     private Date editDate;
+    private Long authorId;
 
 }

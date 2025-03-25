@@ -49,7 +49,7 @@ public class ScheduleController {
             @PathVariable Long id,
             @RequestBody ScheduleRequestDto dto
     ) {
-        return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getTodo(), dto.getAuthor(), dto.getPassword()), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getTodo(), dto.getAuthorId(), dto.getPassword()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -16,7 +16,6 @@ public class Author {
     private Date editDate;
 
     //작성자 생성자
-    //TODO: createDate랑 editDate는 대체 뭐에 쓰는지??
     public Author (String name, String email){
         this.name = name;
         this.email = email;

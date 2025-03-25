@@ -3,7 +3,6 @@ package org.example.scheduleproject.repository;
 import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.entity.Schedule;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -34,14 +33,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("todo", schedule.getTodo());
-        parameters.put("author", schedule.getAuthor());
+        parameters.put("author_id", schedule.getAuthorId());
         parameters.put("create_date", schedule.getCreateDate());
         parameters.put("edit_date", schedule.getEditDate());
         parameters.put("password",schedule.getPassword());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         //새로 만들어진 일정 반환
-        return new ScheduleResponseDto(key.longValue(), schedule.getTodo(), schedule.getAuthor(), schedule.getCreateDate(), schedule.getEditDate());
+        return new ScheduleResponseDto(key.longValue(), schedule.getTodo(), schedule.getCreateDate(), schedule.getEditDate(), schedule.getAuthorId());
     }
 
     //id로 일정 조회
@@ -77,8 +76,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     //일정 수정 (작성자, 할일, 수정일)
     @Override
-    public int updateSchedule(Long id, String todo, String author, String password) {
-        return jdbcTemplate.update("update schedule set todo = ?, author = ?, edit_date = CURRENT_TIMESTAMP where id = ? and password = ?", todo, author, id, password);
+    public int updateSchedule(Long id, String todo, Long authorId, String password) {
+        return jdbcTemplate.update("update schedule set todo = ?, author_id = ?, edit_date = CURRENT_TIMESTAMP where id = ? and password = ?", todo, authorId, id, password);
     }
 
     //일정 삭제
@@ -95,10 +94,10 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                 return new ScheduleResponseDto(
                         rs.getLong("id"),
                         rs.getString("todo"),
-                        rs.getString("author"),
                         rs.getTimestamp("create_date"),
-                        rs.getTimestamp("edit_date")
-                );
+                        rs.getTimestamp("edit_date"),
+                        rs.getLong("author_id")
+                        );
             }
         };
     }
@@ -110,7 +109,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                 return new Schedule(
                         rs.getLong("id"),
                         rs.getString("todo"),
-                        rs.getString("author"),
+                        rs.getLong("author_id"),
                         rs.getTimestamp("create_date"),
                         rs.getTimestamp("edit_date")
                 );
