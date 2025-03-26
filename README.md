@@ -1,7 +1,7 @@
 # schedule-project
 Java를 사용한 일정 관리 앱 과제입니다.
 
-Lvl 0 부터 Lvl 4까지 별도의 브랜치에  나뉘어 있습니다.
+Lvl 0 부터 Lvl 4, Lvl 6이 별도의 브랜치에  나뉘어 있습니다.
 
 ## API:
 https://mango-mountain-50c.notion.site/1c0f1ccea86a80a2bf1def8b324ea303?v=1c0f1ccea86a8015a717000c4d7763bc
@@ -30,3 +30,6 @@ https://mango-mountain-50c.notion.site/1c0f1ccea86a80a2bf1def8b324ea303?v=1c0f1c
 ### Lvl4
 (미완)
 - 일정 조회시 작성자 이름 포함
+
+### Lvl6
+- 유효성 검사 추가
