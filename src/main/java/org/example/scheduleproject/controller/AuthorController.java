@@ -1,5 +1,6 @@
 package org.example.scheduleproject.controller;
 
+import jakarta.validation.Valid;
 import org.example.scheduleproject.dto.AuthorRequestDto;
 import org.example.scheduleproject.dto.AuthorResponseDto;
 import org.example.scheduleproject.service.AuthorService;
@@ -18,7 +19,7 @@ public class AuthorController {
 
     //작성자 생성
     @PostMapping
-    public ResponseEntity<AuthorResponseDto> createAuthor(@RequestBody AuthorRequestDto dto) {
+    public ResponseEntity<AuthorResponseDto> createAuthor(@Valid @RequestBody AuthorRequestDto dto) {
         return new ResponseEntity<>(authorService.createAuthor(dto), HttpStatus.CREATED);
     }
 

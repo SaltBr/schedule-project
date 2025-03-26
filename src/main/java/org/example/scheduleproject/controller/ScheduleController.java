@@ -1,5 +1,6 @@
 package org.example.scheduleproject.controller;
 
+import jakarta.validation.Valid;
 import org.example.scheduleproject.dto.ScheduleRequestDto;
 import org.example.scheduleproject.dto.ScheduleResponseDto;
 import org.example.scheduleproject.entity.Schedule;
@@ -24,7 +25,7 @@ public class ScheduleController {
 
     //일정 생성
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleRequestDto dto) {
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
 
@@ -47,6 +48,7 @@ public class ScheduleController {
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
+            @Valid
             @RequestBody ScheduleRequestDto dto
     ) {
         return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getTodo(), dto.getAuthorId(), dto.getPassword()), HttpStatus.OK);
@@ -56,6 +58,7 @@ public class ScheduleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable Long id,
+            @Valid
             @RequestBody ScheduleRequestDto dto
     ) {
         scheduleService.deleteSchedule(id, dto.getPassword());
