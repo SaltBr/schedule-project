@@ -31,7 +31,7 @@ public class AuthorServiceImpl implements AuthorService {
         return new AuthorResponseDto(author);
     }
 
-    //작성자 이름, 이메일 수
+    //작성자 이름, 이메일 수정
     @Transactional
     @Override
     public AuthorResponseDto updateAuthor(Long authorId, String name, String email) {

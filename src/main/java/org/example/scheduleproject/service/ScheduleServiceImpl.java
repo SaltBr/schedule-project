@@ -38,6 +38,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new ScheduleResponseDto(schedule);
     }
 
+    //작성자 id, 날짜 필터
     @Override
     public List<ScheduleResponseDto> findScheduleByFilter(Optional<Long> authorId, Optional<Date> date) {
         return scheduleRepository.findScheduleByFilter(authorId, date);

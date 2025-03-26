@@ -86,7 +86,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         return jdbcTemplate.update("delete from schedule where id = ? and password = ?", id, password);
     }
 
-
+    //Mapper (ScheduleResponseDto)
     private RowMapper<ScheduleResponseDto> scheduleRowMapper(){
         return new RowMapper<ScheduleResponseDto>() {
             @Override
@@ -103,6 +103,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         };
     }
 
+    //Mapper (Schedule)
     private RowMapper<Schedule> scheduleRowMapperV2(){
         return new RowMapper<Schedule>() {
             @Override
